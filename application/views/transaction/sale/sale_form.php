@@ -68,9 +68,9 @@
                                     <input type="hidden" id="item_id">
                                     <input type="hidden" id="price">
                                     <input type="hidden" id="stock">
-                                    <input type="text" id="barcode" class="form-control" autofocus>
+                                    <input type="text" id="barcode" value="-"class="form-control" autofocus>
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-targer="#modal-item">
+                                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-sale">
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </span>
@@ -91,7 +91,9 @@
                             <td></td>
                             <td>
                                 <div>
-                                    <button type="button" id="add_cart" class="btn btn-primary">
+                                    <button type="button"  id="add-cart" class="btn btn-primary" ?>"
+                                    
+                                    >
                                         <i class="fa fa-cart-plus"></i> Add
                                     </button>
                                 </div>
@@ -133,7 +135,7 @@
                         </thead>
                         <tbody id="cart_table">
                             <tr>
-                                <td colspan="9" class="text-center">Tidak ada item</td>
+                                <td colspan="9" class="text-center" ><input type="text" id="br" value="-" class="form-control"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -242,3 +244,91 @@
         </div>
     </div>
 </section>
+<div class="modal fade" id="modal-sale">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dissmiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Select product</h4>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class="table table-bordered table-striped" id="table1">
+                    <thead>
+                        <tr>
+                            <td>Barcode</td>
+                            <td>Nama</td>
+                            <td>Unit</td>
+                            <td>Price</td>
+                            <td>Stock</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach($item as $i => $data){ ?>
+                        <tr>
+                            <td><?=$data->barcode?></td>
+                            <td><?=$data->name?></td>
+                            <td><?=$data->unit_name?></td>
+                            <td class="text-right"><?=indo_currency($data->price)?></td>
+                            <td class="text-right"><?=$data->stock?></td>
+                            <td class="text-right">
+                                <button class="btn btn-info btn-xs" id="select"
+                                    data-id ="<?=$data->item_id?>"
+                                    data-barcode ="<?=$data->barcode?>"
+                                    data-name ="<?=$data->name?>"
+                                    data-unit ="<?=$data->unit_name?>"
+                                    data-stock ="<?=$data->stock?>"
+                                 
+                                >
+                                    <i class="fa fa-check"></i>Select
+                                </button>
+                            </td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $(document).on('click','#select',function(){
+        var item_id = $(this).data('id');
+        var barcode = $(this).data('barcode');
+        var name = $(this).data('name');
+        var unit_name = $(this).data('unit');
+        var stock = $(this).data('stock');
+        $('#item_id').val(item_id);
+        $('#barcode').val(barcode);
+        $('#item_name').val(name);
+        $('#unit_name').val(unit_name);
+        $('#stock').val(stock);
+        $('#modal-sale').modal('hide');
+        
+        
+
+
+    })
+})
+</script>
+<script>
+$(document).ready(function(){
+    $(document).on('click','#add-cart',function(){
+        var id = $(this).data('id');
+        var br = $(this).data('barcode');
+        var nm = $(this).data('name');
+        var un = $(this).data('unit');
+        var st = $(this).data('stock');
+        $('#id').val(id);
+        $('#br').val(br);
+        $('#im').val(nm);
+        $('#um').val(un);
+        $('#st').val(st);
+        
+    })
+})
+</script>

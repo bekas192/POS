@@ -44,6 +44,7 @@ class Stock extends CI_Controller {
     function process()
     {
         if(isset($_POST['in_add'])){
+          
             $post = $this->input->post(null,TRUE);
             $this->stock_m->add_stock_in($post);
             $this->item_m->update_stock_in($post);
@@ -51,6 +52,7 @@ class Stock extends CI_Controller {
             if ($this->db->affected_rows() > 0) {
                 $this->session->set_flashdata('success', 'Data  Stock-in Berhasil Disimpan');
             }
+        
             redirect('stock/in');
         }
     }
@@ -89,13 +91,20 @@ class Stock extends CI_Controller {
     function process_out()
     {
         if(isset($_POST['out_add'])){
+            $qty = $this->input->post('qty');
+            $stock = $this->input->post('stock');
+            $akhir = $stock - $qty;
+            if($akhir<0){
+                $this->session->set_flashdata('error', 'Data  Stock-out Gagal Disimpan Harap Tidak Melebihi Stok Yang Tersedia! KONTOL');
+            }else{
             $post = $this->input->post(null,TRUE);
             $this->stock_m->add_stock_out($post);
             $this->item_m->update_stock_out($post);
-
+          
             if ($this->db->affected_rows() > 0) {
                 $this->session->set_flashdata('success', 'Data  Stock-out Berhasil Disimpan');
             }
+        }
             redirect('stock/out');
         }
     }

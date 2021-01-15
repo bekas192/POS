@@ -80,7 +80,7 @@
 
                         <div class="form-group">
                             <label>Qty * </label>
-                            <input type="number" name="qty" class="form-control"  required>
+                            <input type="number" name="qty"  class="form-control"  required>
                         </div>
 
                         <div class="form-group">

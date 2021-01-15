@@ -79,8 +79,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Qty * </label>
-                            <input type="number" name="qty" class="form-control"  required>
+                            <label for="stocks">Qty *<small>nilai default dibawah adalah maksimal qty stok out</small> </label>
+                            
+                            <input type="text" name="qty" id="stocks" value="-"  max="-" class="form-control"  required>
                         </div>
 
                         <div class="form-group">
@@ -158,11 +159,13 @@ $(document).ready(function(){
         var name = $(this).data('name');
         var unit_name = $(this).data('unit');
         var stock = $(this).data('stock');
+        var stocks = $(this).data('stock');
         $('#item_id').val(item_id);
         $('#barcode').val(barcode);
         $('#item_name').val(name);
         $('#unit_name').val(unit_name);
         $('#stock').val(stock);
+        $('#stocks').val(stock);
         $('#modal-item').modal('hide');
         
         
